@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SagreEventi.Web.Server", "src\SagreEventi.Web\Server\SagreEventi.Web.Server.csproj", "{71404089-09A2-4C13-994B-33AD4204F249}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SagreEventi.Web.Client", "src\SagreEventi.Web\Client\SagreEventi.Web.Client.csproj", "{261B9864-B6FB-421C-8824-149B78E8C966}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SagreEventi.Web.Shared", "src\SagreEventi.Web\Shared\SagreEventi.Web.Shared.csproj", "{DB993674-C047-4547-B62A-1CCD106EC6D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CDBDAA8C-DAD5-458E-B27E-66E73D35552E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71404089-09A2-4C13-994B-33AD4204F249}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71404089-09A2-4C13-994B-33AD4204F249}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71404089-09A2-4C13-994B-33AD4204F249}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71404089-09A2-4C13-994B-33AD4204F249}.Release|Any CPU.Build.0 = Release|Any CPU
+		{261B9864-B6FB-421C-8824-149B78E8C966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{261B9864-B6FB-421C-8824-149B78E8C966}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{261B9864-B6FB-421C-8824-149B78E8C966}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{261B9864-B6FB-421C-8824-149B78E8C966}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB993674-C047-4547-B62A-1CCD106EC6D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB993674-C047-4547-B62A-1CCD106EC6D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB993674-C047-4547-B62A-1CCD106EC6D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB993674-C047-4547-B62A-1CCD106EC6D1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{71404089-09A2-4C13-994B-33AD4204F249} = {CDBDAA8C-DAD5-458E-B27E-66E73D35552E}
+		{261B9864-B6FB-421C-8824-149B78E8C966} = {CDBDAA8C-DAD5-458E-B27E-66E73D35552E}
+		{DB993674-C047-4547-B62A-1CCD106EC6D1} = {CDBDAA8C-DAD5-458E-B27E-66E73D35552E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3ED702C6-B42D-44A9-8F60-03516216F218}
+	EndGlobalSection
+EndGlobal
