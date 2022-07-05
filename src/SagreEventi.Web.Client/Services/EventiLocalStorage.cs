@@ -4,14 +4,14 @@ using SagreEventi.Shared.Models;
 
 namespace SagreEventi.Web.Client.Services;
 
-public class EventiLocalRepository
+public class EventiLocalStorage
 {
     private readonly HttpClient httpClient;
     private readonly ILocalStorageService localStorageService;
 
     const string EventiLocalStore = "EventiLocalStore";
 
-    public EventiLocalRepository(HttpClient httpClient, ILocalStorageService localStorageService)
+    public EventiLocalStorage(HttpClient httpClient, ILocalStorageService localStorageService)
     {
         this.httpClient = httpClient;
         this.localStorageService = localStorageService;
