@@ -55,3 +55,5 @@ Contributions and/or suggestions are always welcome.
 ## Badges
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
+
+[![.NET Build and Test](https://github.com/AepServerNet/SegnalaSagraEvento/actions/workflows/dotnet.yml/badge.svg)](https://github.com/AepServerNet/SegnalaSagraEvento/actions/workflows/dotnet.yml)
