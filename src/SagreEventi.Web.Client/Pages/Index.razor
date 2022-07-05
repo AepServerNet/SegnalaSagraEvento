@@ -1,5 +1,7 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<h1>Calendario sagre ed eventi enogastronomici @annoCorrente</h1>
 
-Welcome to your new app.
+@code {
+    public string annoCorrente = DateTime.UtcNow.Year.ToString();
+}
