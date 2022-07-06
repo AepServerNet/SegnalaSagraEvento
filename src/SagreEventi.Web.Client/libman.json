@@ -1,0 +1,67 @@
+{
+    "version": "1.0",
+    "defaultProvider": "unpkg",
+    "libraries": [
+        {
+            "library": "bootstrap@4.4.1",
+            "destination": "wwwroot\\lib\\bootstrap",
+            "files": [
+                "dist/js/bootstrap.min.js",
+                "dist/css/bootstrap.min.css"
+            ]
+        },
+        {
+            "library": "@fortawesome/fontawesome-free@5.12.1",
+            "destination": "wwwroot\\lib\\font-awesome",
+            "files": [
+                "css/all.min.css",
+                "webfonts/fa-brands-400.eot",
+                "webfonts/fa-brands-400.svg",
+                "webfonts/fa-brands-400.ttf",
+                "webfonts/fa-brands-400.woff",
+                "webfonts/fa-brands-400.woff2",
+                "webfonts/fa-regular-400.eot",
+                "webfonts/fa-regular-400.svg",
+                "webfonts/fa-regular-400.ttf",
+                "webfonts/fa-regular-400.woff",
+                "webfonts/fa-regular-400.woff2",
+                "webfonts/fa-solid-900.eot",
+                "webfonts/fa-solid-900.svg",
+                "webfonts/fa-solid-900.ttf",
+                "webfonts/fa-solid-900.woff",
+                "webfonts/fa-solid-900.woff2"
+            ]
+        },
+        {
+            "library": "popper.js@1.16.0",
+            "destination": "wwwroot\\lib\\popper",
+            "files": [
+                "dist/umd/popper.min.js"
+            ]
+        },
+        {
+            "library": "jquery-validation@1.19.1",
+            "destination": "wwwroot/lib/jquery-validation",
+            "files": [
+                "dist/jquery.validate.min.js",
+                "dist/localization/messages_it.min.js",
+                "dist/additional-methods.min.js"
+            ]
+        },
+        {
+            "library": "jquery-validation-unobtrusive@3.2.11",
+            "destination": "wwwroot/lib/jquery-validation-unobtrusive",
+            "files": [
+                "dist/jquery.validate.unobtrusive.min.js"
+            ]
+        },
+        {
+            "library": "jquery@3.4.1",
+            "destination": "wwwroot/lib/jquery",
+            "files": [
+                "dist/jquery.min.js",
+                "dist/jquery.slim.min.js"
+            ]
+        }
+    ]
+}
