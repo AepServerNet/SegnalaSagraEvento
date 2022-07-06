@@ -1,8 +1,7 @@
 ﻿using System.Net.Http.Json;
 using Blazored.LocalStorage;
-using SagreEventi.Shared.Models;
 
-namespace SagreEventi.Web.Client.Services;
+namespace SagreEventi.Shared.Models.Services;
 
 public class EventiLocalStorage
 {
@@ -17,9 +16,8 @@ public class EventiLocalStorage
         this.localStorageService = localStorageService;
     }
 
-    async Task<EventiStore> GetEventiStore()
+    public async Task<EventiStore> GetEventiStore()
     {
-
         var eventoStore = await localStorageService.GetItemAsync<EventiStore>(EventiLocalStore);
 
         if (eventoStore == null)
@@ -30,9 +28,34 @@ public class EventiLocalStorage
         return eventoStore;
     }
 
+    public async Task SalvaToDoItem(EventoModel eventoModel)
+    {
+        var eventiStore = await GetEventiStore();
+
+        eventoModel.DataOraUltimaModifica = DateTime.Now;
+
+        if (string.IsNullOrEmpty(eventoModel.Id))
+        {
+            eventoModel.Id = Guid.NewGuid().ToString();
+            eventiStore.ListaEventi.Add(eventoModel);
+        }
+        else
+        {
+            if (eventiStore.ListaEventi.Where(x => x.Id == eventoModel.Id).Any())
+            {
+                eventiStore.ListaEventi[eventiStore.ListaEventi.FindIndex(ind => ind.Id == eventoModel.Id)] = eventoModel;
+            }
+            else
+            {
+                eventiStore.ListaEventi.Add(eventoModel);
+            }
+        }
+
+        await localStorageService.SetItemAsync(EventiLocalStore, eventiStore);
+    }
+
     public async Task EseguiSync()
     {
-
         var EventoStore = await GetEventiStore();
         DateTime DataOraUltimoSyncServer = EventoStore.DataOraUltimoSyncServer;
 
@@ -91,7 +114,7 @@ public class EventiLocalStorage
         return eventiStore.ListaEventi.Where(x => x.EventoConcluso == false).OrderBy(x => x.NomeEvento).ToList();
     }
 
-    public async Task<int> GetNumeroEventiDaSincronizzare()
+    public async Task<int> GetEventiDaSincronizzare()
     {
         var eventiStore = await GetEventiStore();
 

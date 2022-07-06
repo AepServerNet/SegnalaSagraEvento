@@ -1,0 +1,23 @@
+﻿@page "/nuovo"
+@inject EventiLocalStorage eventiLocalStorage
+
+@code {
+
+    EventoModel modelEvento { get; set; }
+
+    async Task HandleValidSubmit()
+    {
+        await eventiLocalStorage.SalvaToDoItem(modelEvento);
+
+        modelEvento = null;
+
+        StateHasChanged();
+    }
+
+    public void ShowDialog(EventoModel eventoModel)
+    {
+        modelEvento = eventoModel;
+
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,68 @@
+﻿@inject IJSRuntime JsRuntime
+@inject EventiLocalStorage eventiLocalStorage
+@implements IDisposable
+
+@if (onLine)
+{
+    <h3>On Line</h3>
+    <button class="btn btn-primary" @onclick="Synchronize" disabled="@IsBusy">
+        @if (IsBusy)
+        {
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        }
+        <span>Aggiorna</span>
+    </button>
+}
+else
+{
+    <h3>Connessione assente</h3>
+}
+
+@code {
+
+    [Parameter]
+    public EventCallback ForceRefreshEventCallback { get; set; }
+
+    public bool onLine { get; set; }
+    public bool IsBusy { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+    [JSInvokable("Connection.StatusChanged")]
+    public void OnConnectionStatusChanged(bool isOnline)
+    {
+        if (onLine != isOnline)
+        {
+            onLine = isOnline;
+            IsBusy = !isOnline;
+        }
+
+        StateHasChanged();
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JsRuntime.InvokeVoidAsync("Connection.Initialize", DotNetObjectReference.Create(this));
+        }
+    }
+
+    public void Dispose()
+    {
+        JsRuntime.InvokeVoidAsync("Connection.Dispose");
+    }
+
+    public async Task Synchronize()
+    {
+        IsBusy = true;
+
+        await eventiLocalStorage.EseguiSync();
+        await ForceRefreshEventCallback.InvokeAsync();
+
+        IsBusy = false;
+    }
+}

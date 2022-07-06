@@ -1,8 +1,37 @@
 ﻿@page "/"
+@inject EventiLocalStorage eventiLocalStorage
+@inject IJSRuntime jsRuntime
 
 <PageTitle>Sagre ed Eventi @annoCorrente</PageTitle>
 <h1>Calendario sagre ed eventi enogastronomici @annoCorrente</h1>
 
+<p>Numero Eventi: @(ListaEventi.Count()) / Eventi da sincronizzare:  @(EventiDaSincronizzare)</p>
+
+@if (ListaEventi == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <SyncEventi ForceRefreshEventCallback="RefreshListaToDoItem" />
+}
+
 @code {
     public string annoCorrente = DateTime.UtcNow.Year.ToString();
+
+    List<EventoModel> ListaEventi { get; set; }
+    int EventiDaSincronizzare { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await RefreshListaEventi();
+    }
+
+    public async Task RefreshListaEventi()
+    {
+        ListaEventi = await eventiLocalStorage.GetListaEventi();
+        EventiDaSincronizzare = await eventiLocalStorage.GetEventiDaSincronizzare();
+
+        StateHasChanged();
+    }
 }
