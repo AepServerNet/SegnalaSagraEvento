@@ -52,6 +52,10 @@ Start the server
 Contributions and/or suggestions are always welcome.
 
 
+## Inspired by
+https://bit.ly/3bVT5q4
+
+
 ## Badges
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
