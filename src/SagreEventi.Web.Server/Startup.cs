@@ -1,3 +1,9 @@
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.EntityFrameworkCore;
+using SagreEventi.Web.Server.Extensions;
+using SagreEventi.Web.Server.Models.Services.Infrastructure;
+
 namespace SagreEventi.Web.Server;
 
 public class Startup
@@ -9,34 +15,55 @@ public class Startup
 
     public IConfiguration Configuration { get; }
 
-    // This method gets called by the runtime. Use this method to add services to the container.
-    // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddControllersWithViews()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
+            });
 
-        services.AddControllersWithViews();
         services.AddRazorPages();
+
+        services.AddDbContextPool<AppDbContext>(optionsBuilder =>
+        {
+            string connectionString = Configuration.GetSection("ConnectionStrings").GetValue<string>("Default");
+            optionsBuilder.UseSqlite(connectionString, options =>
+            {
+                // Abilito il connection resiliency (tuttavia non è supportato dal provider di Sqlite perché non è soggetto a errori transienti)
+                // Info su: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency
+                // options.EnableRetryOnFailure(3);
+            });
+        });
+
+        services.AddSwaggerServices(Configuration);
+
+        // Options
+        services.Configure<KestrelServerOptions>(Configuration.GetSection("Kestrel"));
     }
 
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(WebApplication app)
     {
+        IWebHostEnvironment env = app.Environment;
+
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
             app.UseWebAssemblyDebugging();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sagre ed Eventi v1"));
         }
-        else
-        {
-            app.UseExceptionHandler("/Error");
-            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            app.UseHsts();
-        }
+        //else
+        //{
+        //    app.UseExceptionHandler("/Error");
+        //    app.UseHsts();
+        //}
 
         app.UseHttpsRedirection();
         app.UseBlazorFrameworkFiles();
-        app.UseStaticFiles();
 
+        app.UseStaticFiles();
         app.UseRouting();
 
         app.UseEndpoints(endpoints =>
