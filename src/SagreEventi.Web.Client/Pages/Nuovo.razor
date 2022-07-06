@@ -1,23 +1,43 @@
 ﻿@page "/nuovo"
 @inject EventiLocalStorage eventiLocalStorage
+@inject NavigationManager navigationManager
+
+<EditForm Model="@modelEvento" OnValidSubmit="@HandleValidSubmit">
+    <div class="form-group">
+        <label for="titolo">Nome Evento:</label>
+        <InputText id="NomeEvento" class="form-control col-sm-8" @bind-Value="@modelEvento.NomeEvento" placeholder="Nome Evento"></InputText>
+    </div>
+    <div class="form-group">
+      <label for="titolo">Luogo Evento:</label>
+      <InputText id="CittaEvento" class="form-control col-sm-8" @bind-Value="@modelEvento.CittaEvento" placeholder="Luogo Evento"></InputText>
+    </div>
+    <div class="form-group">
+    <label for="descrizione" class="col-sm-3">Data Evento:</label>
+    <InputDate id="DataOraEvento" class="form-control col-sm-8" @bind-Value="@modelEvento.DataOraEvento" placeholder="Data Evento"></InputDate>
+</div>
+    <div class="form-group">
+        <label for="descrizione" class="col-sm-3">Descrizione Evento:</label>
+        <InputTextArea id="DescrizioneEvento" class="form-control col-sm-8" @bind-Value="@modelEvento.DescrizioneEvento" placeholder="Descrizione Evento"></InputTextArea>
+    </div>
+    <div class="form-group">
+        <label for="done" class="col-sm-3">Evento concluso:</label>
+        <input type="checkbox" id="done" @bind="modelEvento.EventoConcluso">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salva Evento</button>
+</EditForm>
 
 @code {
 
-    EventoModel modelEvento { get; set; }
+    EventoModel modelEvento = new();
 
-    async Task HandleValidSubmit()
+    public async Task HandleValidSubmit()
     {
         await eventiLocalStorage.SalvaToDoItem(modelEvento);
 
-        modelEvento = null;
-
+        modelEvento = new();
         StateHasChanged();
-    }
 
-    public void ShowDialog(EventoModel eventoModel)
-    {
-        modelEvento = eventoModel;
-
-        StateHasChanged();
+        navigationManager.NavigateTo("/", false);
     }
 }

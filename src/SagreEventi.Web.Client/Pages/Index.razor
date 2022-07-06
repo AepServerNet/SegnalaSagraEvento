@@ -3,9 +3,7 @@
 @inject IJSRuntime jsRuntime
 
 <PageTitle>Sagre ed Eventi @annoCorrente</PageTitle>
-<h1>Calendario sagre ed eventi enogastronomici @annoCorrente</h1>
-
-<p>Numero Eventi: @(ListaEventi.Count()) / Eventi da sincronizzare:  @(EventiDaSincronizzare)</p>
+<h1>Sagre ed eventi enogastronomici @annoCorrente</h1>
 
 @if (ListaEventi == null)
 {
@@ -13,7 +11,9 @@
 }
 else
 {
-    <SyncEventi ForceRefreshEventCallback="RefreshListaToDoItem" />
+    <p>Numero Eventi: @(ListaEventi.Count()) / Eventi da sincronizzare: @(EventiDaSincronizzare)</p>
+
+    <SyncEventi ForceRefreshEventCallback="RefreshListaEventi" />
 }
 
 @code {

@@ -8,9 +8,12 @@
     <button class="btn btn-primary" @onclick="Synchronize" disabled="@IsBusy">
         @if (IsBusy)
         {
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <span>Aggiornamento in corso, attendere prego...</span>
         }
-        <span>Aggiorna</span>
+        else
+        {
+            <span>Aggiorna</span>
+        }
     </button>
 }
 else
@@ -19,7 +22,6 @@ else
 }
 
 @code {
-
     [Parameter]
     public EventCallback ForceRefreshEventCallback { get; set; }
 
@@ -42,7 +44,6 @@ else
 
         StateHasChanged();
     }
-
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
