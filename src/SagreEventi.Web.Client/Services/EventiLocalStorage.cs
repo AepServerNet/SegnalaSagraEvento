@@ -10,6 +10,7 @@ public class EventiLocalStorage
     private readonly ILocalStorageService localStorageService;
 
     const string EventiLocalStore = "EventiLocalStore";
+    const string PathApplicationAPI = "api/Eventi";
 
     public EventiLocalStorage(HttpClient httpClient, ILocalStorageService localStorageService)
     {
@@ -17,9 +18,12 @@ public class EventiLocalStorage
         this.localStorageService = localStorageService;
     }
 
-    async Task<EventiStore> GetEventiStore()
+    /// <summary>
+    /// Gets a list of locally saved events
+    /// </summary>
+    /// <returns></returns>
+    public async Task<EventiStore> GetEventiStore()
     {
-
         var eventoStore = await localStorageService.GetItemAsync<EventiStore>(EventiLocalStore);
 
         if (eventoStore == null)
@@ -30,23 +34,57 @@ public class EventiLocalStorage
         return eventoStore;
     }
 
+    /// <summary>
+    /// Save the new event
+    /// </summary>
+    /// <param name="eventoModel"></param>
+    /// <returns></returns>
+    public async Task SalvaToDoItem(EventoModel eventoModel)
+    {
+        var eventiStore = await GetEventiStore();
+
+        eventoModel.DataOraUltimaModifica = DateTime.Now;
+
+        if (string.IsNullOrEmpty(eventoModel.Id))
+        {
+            eventoModel.Id = Guid.NewGuid().ToString();
+            eventiStore.ListaEventi.Add(eventoModel);
+        }
+        else
+        {
+            if (eventiStore.ListaEventi.Where(x => x.Id == eventoModel.Id).Any())
+            {
+                eventiStore.ListaEventi[eventiStore.ListaEventi.FindIndex(ind => ind.Id == eventoModel.Id)] = eventoModel;
+            }
+            else
+            {
+                eventiStore.ListaEventi.Add(eventoModel);
+            }
+        }
+
+        await localStorageService.SetItemAsync(EventiLocalStore, eventiStore);
+    }
+
+    /// <summary>
+    /// Performs event synchronization between frontend and backend
+    /// </summary>
+    /// <returns></returns>
     public async Task EseguiSync()
     {
-
         var EventoStore = await GetEventiStore();
-        DateTime DataOraUltimoSyncServer = EventoStore.DataOraUltimoSyncServer;
+        var DataOraUltimoSyncServer = EventoStore.DataOraUltimoSyncServer;
 
         var ListaEventiDaSincronizzare = EventoStore.ListaEventi.Where(x => x.DataOraUltimaModifica > EventoStore.DataOraUltimoSyncServer);
 
         if (ListaEventiDaSincronizzare.Count() > 0)
         {
-            (await httpClient.PutAsJsonAsync("api/todolist/updatefromclient", ListaEventiDaSincronizzare)).EnsureSuccessStatusCode();
+            (await httpClient.PutAsJsonAsync($"{PathApplicationAPI}/UpdateEventi", ListaEventiDaSincronizzare)).EnsureSuccessStatusCode();
 
-            //A questo punto quelli cancellati non servono più
+            //Quelli conclusi non servono più quindi li cancello
             EventoStore.ListaEventi.RemoveAll(x => x.EventoConcluso);
         }
 
-        var json = await httpClient.GetFromJsonAsync<List<EventoModel>>($"api/todolist/getalltodoitems?since={DataOraUltimoSyncServer:o}");
+        var json = await httpClient.GetFromJsonAsync<List<EventoModel>>($"{PathApplicationAPI}/GetEventi?since={DataOraUltimoSyncServer:o}");
 
         foreach (var itemjson in json)
         {
@@ -81,9 +119,13 @@ public class EventiLocalStorage
             EventoStore.DataOraUltimoSyncServer = json.Max(x => x.DataOraUltimaModifica);
         }
 
-        await localStorageService.SetItemAsync<EventiStore>(EventiLocalStore, EventoStore);
+        await localStorageService.SetItemAsync(EventiLocalStore, EventoStore);
     }
 
+    /// <summary>
+    /// Gets a list of events
+    /// </summary>
+    /// <returns></returns>
     public async Task<List<EventoModel>> GetListaEventi()
     {
         var eventiStore = await GetEventiStore();
@@ -91,7 +133,11 @@ public class EventiLocalStorage
         return eventiStore.ListaEventi.Where(x => x.EventoConcluso == false).OrderBy(x => x.NomeEvento).ToList();
     }
 
-    public async Task<int> GetNumeroEventiDaSincronizzare()
+    /// <summary>
+    /// Gets a list of locally saved events to synchronize
+    /// </summary>
+    /// <returns></returns>
+    public async Task<int> GetEventiDaSincronizzare()
     {
         var eventiStore = await GetEventiStore();
 

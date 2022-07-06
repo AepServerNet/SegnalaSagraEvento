@@ -1,7 +1,8 @@
 ﻿namespace SagreEventi.Shared.Models;
 public class EventoModel
 {
-    public int Id { get; set; }
+    //public int Id { get; set; }
+    public string Id { get; set; }
     public string NomeEvento { get; set; }
     public string DescrizioneEvento { get; set; }
     public string CittaEvento { get; set; }
