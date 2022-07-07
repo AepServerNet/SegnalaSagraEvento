@@ -14,10 +14,11 @@ namespace SagreEventi.Web.Server.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    NomeEvento = table.Column<string>(type: "TEXT", nullable: true),
-                    DescrizioneEvento = table.Column<string>(type: "TEXT", nullable: true),
-                    CittaEvento = table.Column<string>(type: "TEXT", nullable: true),
-                    DataOraEvento = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    NomeEvento = table.Column<string>(type: "TEXT", nullable: false),
+                    CittaEvento = table.Column<string>(type: "TEXT", nullable: false),
+                    DataInizioEvento = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DataFineEvento = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DescrizioneEvento = table.Column<string>(type: "TEXT", nullable: false),
                     EventoConcluso = table.Column<bool>(type: "INTEGER", nullable: false),
                     DataOraUltimaModifica = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },

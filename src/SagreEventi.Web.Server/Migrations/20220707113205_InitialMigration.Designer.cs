@@ -11,7 +11,7 @@ using SagreEventi.Web.Server.Models.Services.Infrastructure;
 namespace SagreEventi.Web.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220706123428_InitialMigration")]
+    [Migration("20220707113205_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,21 +25,29 @@ namespace SagreEventi.Web.Server.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CittaEvento")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DataOraEvento")
+                    b.Property<DateTime?>("DataFineEvento")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DataInizioEvento")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DataOraUltimaModifica")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DescrizioneEvento")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("EventoConcluso")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("NomeEvento")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

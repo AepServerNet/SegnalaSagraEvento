@@ -23,21 +23,29 @@ namespace SagreEventi.Web.Server.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CittaEvento")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DataOraEvento")
+                    b.Property<DateTime?>("DataFineEvento")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DataInizioEvento")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DataOraUltimaModifica")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DescrizioneEvento")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("EventoConcluso")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("NomeEvento")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
