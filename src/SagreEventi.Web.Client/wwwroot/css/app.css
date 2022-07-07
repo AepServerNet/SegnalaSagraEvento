@@ -27,7 +27,13 @@ a, .btn-link {
 }
 
 .validation-message {
-    color: red;
+    color: darkred;
+    border-left: 3px solid red;
+    padding-left: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: rgba(255, 0, 0, 0.05);
+    margin-bottom: 2px;
 }
 
 #blazor-error-ui {
