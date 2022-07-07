@@ -39,7 +39,7 @@ public class EventiLocalStorage
     /// </summary>
     /// <param name="eventoModel"></param>
     /// <returns></returns>
-    public async Task SalvaToDoItem(EventoModel eventoModel)
+    public async Task SalvaEvento(EventoModel eventoModel)
     {
         var eventiStore = await GetEventiStore();
 
@@ -69,7 +69,7 @@ public class EventiLocalStorage
     /// Performs event synchronization between frontend and backend
     /// </summary>
     /// <returns></returns>
-    public async Task EseguiSync()
+    public async Task EseguiSyncWithDatabase()
     {
         var EventoStore = await GetEventiStore();
         var DataOraUltimoSyncServer = EventoStore.DataOraUltimoSyncServer;

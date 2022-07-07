@@ -2,39 +2,70 @@
 @inject EventiLocalStorage eventiLocalStorage
 @inject NavigationManager navigationManager
 
-<EditForm Model="@modelEvento" OnValidSubmit="@HandleValidSubmit">
-    <div class="form-group">
-        <label for="titolo">Nome Evento:</label>
-        <InputText id="NomeEvento" class="form-control col-sm-8" @bind-Value="@modelEvento.NomeEvento" placeholder="Nome Evento"></InputText>
-    </div>
-    <div class="form-group">
-      <label for="titolo">Luogo Evento:</label>
-      <InputText id="CittaEvento" class="form-control col-sm-8" @bind-Value="@modelEvento.CittaEvento" placeholder="Luogo Evento"></InputText>
-    </div>
-    <div class="form-group">
-    <label for="descrizione" class="col-sm-3">Data Evento:</label>
-    <InputDate id="DataOraEvento" class="form-control col-sm-8" @bind-Value="@modelEvento.DataOraEvento" placeholder="Data Evento"></InputDate>
+<div class="container">
+    <EditForm Model="@modelEvento" OnValidSubmit="@HandleValidSubmit">
+        <div class="row">
+            <div class="col-12"><DataAnnotationsValidator />
+            <ValidationSummary /></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Nome Evento</label>
+                    <InputText id="NomeEvento" class="form-control" @bind-Value="@modelEvento.NomeEvento" placeholder="Nome Evento"></InputText>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Luogo Evento</label>
+                    <InputText id="CittaEvento" class="form-control" @bind-Value="@modelEvento.CittaEvento" placeholder="Luogo Evento"></InputText>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Data Inizio Evento</label>
+                    <InputDate id="DataInizioEvento" class="form-control" @bind-Value="@modelEvento.DataInizioEvento" placeholder="Data Inizio Evento"></InputDate>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Data Fine Evento</label>
+                    <InputDate id="DataFineEvento" class="form-control" @bind-Value="@modelEvento.DataFineEvento" placeholder="Data Fine Evento"></InputDate>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                    <label>Descrizione Evento</label>
+                    <InputTextArea id="DescrizioneEvento" rows="5" class="form-control" @bind-Value="@modelEvento.DescrizioneEvento" placeholder="Descrizione Evento"></InputTextArea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md" style="text-align: center"><button type="submit" class="btn btn-outline-primary"><i class="fas fa-save"></i> Salva</button>&nbsp;
+                <button type="button" class="btn btn-outline-secondary" @onclick="@Cancel"><i class="fas fa-eraser"></i> Annulla</button></div>
+        </div>
+    </EditForm>
 </div>
-    <div class="form-group">
-        <label for="descrizione" class="col-sm-3">Descrizione Evento:</label>
-        <InputTextArea id="DescrizioneEvento" class="form-control col-sm-8" @bind-Value="@modelEvento.DescrizioneEvento" placeholder="Descrizione Evento"></InputTextArea>
-    </div>
-    <div class="form-group">
-        <label for="done" class="col-sm-3">Evento concluso:</label>
-        <input type="checkbox" id="done" @bind="modelEvento.EventoConcluso">
-    </div>
-
-    <button type="submit" class="btn btn-primary">Salva Evento</button>
-</EditForm>
 
 @code {
-
     EventoModel modelEvento = new();
 
     public async Task HandleValidSubmit()
     {
-        await eventiLocalStorage.SalvaToDoItem(modelEvento);
+        await eventiLocalStorage.SalvaEvento(modelEvento);
 
+        modelEvento = new();
+        StateHasChanged();
+
+        navigationManager.NavigateTo("/", false);
+    }
+
+    public void Cancel()
+    {
         modelEvento = new();
         StateHasChanged();
 

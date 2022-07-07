@@ -2,19 +2,33 @@
 @inject EventiLocalStorage eventiLocalStorage
 @inject IJSRuntime jsRuntime
 
-<PageTitle>Sagre ed Eventi @annoCorrente</PageTitle>
-<h1>Sagre ed eventi enogastronomici @annoCorrente</h1>
+<PageTitle>Sagre ed eventi enogastronomici</PageTitle>
 
-@if (ListaEventi == null)
-{
-    <p>Loading...</p>
-}
-else
-{
-    <p>Numero Eventi: @(ListaEventi.Count()) / Eventi da sincronizzare: @(EventiDaSincronizzare)</p>
+<div class="container">
+     <div class="row">
+         <div class="col-12"><h1>Sagre ed eventi @annoCorrente</h1></div>
+     </div>
+     <div class="row">
+        <div class="col-12"><br /></div>
+    </div>
 
-    <SyncEventi ForceRefreshEventCallback="RefreshListaEventi" />
-}
+    @if (ListaEventi == null)
+    {
+        <div class="row">
+            <div class="col-12">Loading...</div>
+        </div>
+    }
+    else
+    {
+        <SyncEventi ForceRefreshEventCallback="RefreshListaEventi" />
+
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-light" role="alert">Numero Eventi: <b>@(ListaEventi.Count())</b> / Eventi da sincronizzare: <b>@(EventiDaSincronizzare)</b></div>
+            </div>
+        </div>
+    }
+</div>
 
 @code {
     public string annoCorrente = DateTime.UtcNow.Year.ToString();
@@ -31,6 +45,8 @@ else
     {
         ListaEventi = await eventiLocalStorage.GetListaEventi();
         EventiDaSincronizzare = await eventiLocalStorage.GetEventiDaSincronizzare();
+
+        await eventiLocalStorage.EseguiSyncWithDatabase();
 
         StateHasChanged();
     }

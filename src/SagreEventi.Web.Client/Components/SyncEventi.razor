@@ -4,21 +4,31 @@
 
 @if (onLine)
 {
-    <h3>On Line</h3>
-    <button class="btn btn-primary" @onclick="Synchronize" disabled="@IsBusy">
-        @if (IsBusy)
-        {
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <span>Aggiornamento in corso, attendere prego...</span>
-        }
-        else
-        {
-            <span>Aggiorna</span>
-        }
-    </button>
+    <div class="row">
+        <div class="col-12" style="text-align: right;">
+            <button class="btn btn-primary" @onclick="Synchronize" disabled="@IsBusy">
+                @if (IsBusy)
+                {
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <span>Aggiornamento in corso, attendere prego...</span>
+                }
+                else
+                {
+                    <span><i class="fas fa-sync"></i> Aggiorna eventi</span>
+                }
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12"><div class="alert alert-success" role="alert">Stato applicazione: <b>Online</b></div></div>
+    </div>
 }
 else
 {
-    <h3>Connessione assente</h3>
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-danger" role="alert">Stato applicazione: <b>Offline - Connessione assente</b></div>
+        </div>
+    </div>
 }
 
 @code {
@@ -61,7 +71,7 @@ else
     {
         IsBusy = true;
 
-        await eventiLocalStorage.EseguiSync();
+        await eventiLocalStorage.EseguiSyncWithDatabase();
         await ForceRefreshEventCallback.InvokeAsync();
 
         IsBusy = false;
