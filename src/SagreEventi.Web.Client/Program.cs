@@ -13,9 +13,10 @@ public class Program
         builder.RootComponents.Add<App>("#app");
         builder.RootComponents.Add<HeadOutlet>("head::after");
 
-        builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-        builder.Services.AddScoped<EventiLocalStorage>();
+        builder.Services.AddHttpClient("httpclient01", a => a.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
+        builder.Services.AddScoped(a => a.GetRequiredService<IHttpClientFactory>().CreateClient("httpclient01"));
 
+        builder.Services.AddScoped<EventiLocalStorage>();
         builder.Services.AddBlazoredLocalStorage();
 
         await builder.Build().RunAsync();

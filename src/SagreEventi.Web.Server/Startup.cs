@@ -25,6 +25,16 @@ public class Startup
 
         services.AddRazorPages();
 
+        services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(builder =>
+            {
+                builder.AllowAnyOrigin();
+                builder.AllowAnyHeader();
+                builder.AllowAnyMethod();
+            });
+        });
+
         services.AddDbContextPool<AppDbContext>(optionsBuilder =>
         {
             string connectionString = Configuration.GetSection("ConnectionStrings").GetValue<string>("Default");
@@ -66,6 +76,7 @@ public class Startup
         app.UseStaticFiles();
         app.UseRouting();
 
+        app.UseCors();
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapRazorPages();

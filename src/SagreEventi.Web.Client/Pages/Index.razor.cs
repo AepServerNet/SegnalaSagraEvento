@@ -5,8 +5,6 @@ namespace SagreEventi.Web.Client.Pages;
 
 public partial class Index : ComponentBase
 {
-    public string annoCorrente = DateTime.UtcNow.Year.ToString();
-
     List<EventoModel> ListaEventi { get; set; }
     int EventiDaSincronizzare { get; set; }
 
@@ -19,8 +17,6 @@ public partial class Index : ComponentBase
     {
         ListaEventi = await eventiLocalStorage.GetListaEventi();
         EventiDaSincronizzare = await eventiLocalStorage.GetEventiDaSincronizzare();
-
-        await eventiLocalStorage.EseguiSyncWithDatabase();
 
         StateHasChanged();
     }

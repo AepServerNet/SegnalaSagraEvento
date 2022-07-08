@@ -1,15 +1,16 @@
 {
-  "name": "SagreEventi.Web",
-  "short_name": "SagreEventi.Web",
-  "start_url": "./",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#03173d",
-  "icons": [
-    {
-      "src": "icon-512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ]
+    "name": "Sagre ed Eventi enogastronomici",
+    "short_name": "Sagre ed Eventi",
+    "start_url": "./",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000080",
+    "icons": [
+        {
+            "src": "icon-512.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "any maskable"
+        }
+    ]
 }
