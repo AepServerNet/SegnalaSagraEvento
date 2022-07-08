@@ -1,12 +1,13 @@
 ﻿@page "/nuovo"
+@using Blazored.FluentValidation
 @inject EventiLocalStorage eventiLocalStorage
 @inject NavigationManager navigationManager
 
 <div class="container">
     <EditForm Model="@modelEvento" OnValidSubmit="@HandleValidSubmit">
         <div class="row">
-            <div class="col-12"><DataAnnotationsValidator />
-            <ValidationSummary /></div>
+            <div class="col-12"><FluentValidationValidator />
+                <ValidationSummary /></div>
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -50,25 +51,3 @@
         </div>
     </EditForm>
 </div>
-
-@code {
-    EventoModel modelEvento = new();
-
-    public async Task HandleValidSubmit()
-    {
-        await eventiLocalStorage.SalvaEvento(modelEvento);
-
-        modelEvento = new();
-        StateHasChanged();
-
-        navigationManager.NavigateTo("/", false);
-    }
-
-    public void Cancel()
-    {
-        modelEvento = new();
-        StateHasChanged();
-
-        navigationManager.NavigateTo("/", false);
-    }
-}
