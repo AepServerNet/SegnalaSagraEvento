@@ -1,0 +1,20 @@
+﻿version: '3.7'
+
+services:
+  sagreeventi:
+    container_name: blazor-sagreeventi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - /docker/sagreeventi/data:/app
+    ports:
+      - 5095:5001
+    networks:
+      - lan-network
+
+networks:
+  lan-network:
+    external:
+      name: docker-net
