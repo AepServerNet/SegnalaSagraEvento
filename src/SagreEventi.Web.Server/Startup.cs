@@ -2,6 +2,8 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using SagreEventi.Web.Server.Extensions;
+using SagreEventi.Web.Server.HostedServices;
+using SagreEventi.Web.Server.Models.Services.Application;
 using SagreEventi.Web.Server.Models.Services.Infrastructure;
 
 namespace SagreEventi.Web.Server;
@@ -46,6 +48,9 @@ public class Startup
             });
         });
 
+        services.AddSingleton<IHostedService, EventiHostedService>();
+        services.AddTransient<IEventiService, EfCoreEventiService>();
+
         services.AddSwaggerServices(Configuration);
 
         // Options
@@ -64,11 +69,6 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sagre ed Eventi v1"));
         }
-        //else
-        //{
-        //    app.UseExceptionHandler("/Error");
-        //    app.UseHsts();
-        //}
 
         app.UseHttpsRedirection();
         app.UseBlazorFrameworkFiles();

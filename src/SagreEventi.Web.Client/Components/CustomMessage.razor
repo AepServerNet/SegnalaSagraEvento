@@ -1,0 +1,14 @@
+﻿@if (CountEventi == 0 || CountSync > 0)
+{
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-warning" role="alert">Premere il pulsante AGGIORNA EVENTI per sincronizzare gli eventi. Grazie</div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public int CountEventi { get; set; }
+
+    [Parameter] public int CountSync { get; set; }
+}

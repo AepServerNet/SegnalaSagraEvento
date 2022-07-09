@@ -1,0 +1,38 @@
+﻿<div class="row">
+    <div class="col-12"><br /></div>
+</div>
+
+@if (Eventi.Count() == 0)
+{
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-primary" role="alert">Al momento non ci sono eventi da visualizzare. Riprovare pi&ugrave; tardi.</div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var item in Eventi)
+        {
+            <div class="col-md-4 mb-2">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-glass-cheers"></i> @item.NomeEvento</h5>
+                        <p class="card-text">@item.DescrizioneEvento</p>
+                        <blockquote class="blockquote mb-0">
+                            <footer class="blockquote-footer"><p><i class="fas fa-calendar-alt"></i>
+                                Dal @Convert.ToDateTime(@item.DataInizioEvento).ToString("dd/MM/yyyy") al
+                                @Convert.ToDateTime(@item.DataFineEvento).ToString("dd/MM/yyyy")</p>
+                              <p><i class="fas fa-map-marker-alt"></i> @item.CittaEvento</p></footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    [Parameter] public List<EventoModel> Eventi { get; set; }
+}

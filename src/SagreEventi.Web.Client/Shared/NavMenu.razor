@@ -21,9 +21,9 @@
 </div>
 
 @code {
-    private string annoCorrente = DateTime.UtcNow.Year.ToString();
     private bool collapseNavMenu = true;
 
+    private string annoCorrente = DateTime.UtcNow.Year.ToString();
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
