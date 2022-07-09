@@ -5,8 +5,9 @@ namespace SagreEventi.Web.Client.Pages;
 
 public partial class Index : ComponentBase
 {
-    List<EventoModel> ListaEventi { get; set; }
-    int EventiDaSincronizzare { get; set; }
+    public List<EventoModel> ListaEventi { get; set; }
+    public int EventiDaSincronizzare { get; set; }
+    public bool RefreshApp { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
     {
