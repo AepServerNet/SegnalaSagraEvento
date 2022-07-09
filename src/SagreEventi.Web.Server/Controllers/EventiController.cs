@@ -7,7 +7,7 @@ namespace SagreEventi.Web.Server.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
-//[Produces(MediaTypeNames.Application.Json)]
+
 public class EventiController : ControllerBase
 {
     private readonly ILogger<EventiController> logger;

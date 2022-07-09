@@ -64,11 +64,6 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sagre ed Eventi v1"));
         }
-        //else
-        //{
-        //    app.UseExceptionHandler("/Error");
-        //    app.UseHsts();
-        //}
 
         app.UseHttpsRedirection();
         app.UseBlazorFrameworkFiles();
