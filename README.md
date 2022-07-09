@@ -1,7 +1,7 @@
 # Segnala una sagre od un evento enogastronomico
 Application that keeps track of food and wine festivals and events reported by users
 
-![image](https://user-images.githubusercontent.com/49655304/177998104-69a1f71e-3155-4f12-ad50-0b6cbaca46d6.png)
+![immagine](https://user-images.githubusercontent.com/107076741/178114907-74a0dd7c-c129-46af-9715-174ad0096df1.png)
 
 
 ## Features
