@@ -2,6 +2,8 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using SagreEventi.Web.Server.Extensions;
+using SagreEventi.Web.Server.HostedServices;
+using SagreEventi.Web.Server.Models.Services.Application;
 using SagreEventi.Web.Server.Models.Services.Infrastructure;
 
 namespace SagreEventi.Web.Server;
@@ -45,6 +47,9 @@ public class Startup
                 // options.EnableRetryOnFailure(3);
             });
         });
+
+        services.AddSingleton<IHostedService, EventiHostedService>();
+        services.AddTransient<IEventiService, EfCoreEventiService>();
 
         services.AddSwaggerServices(Configuration);
 
