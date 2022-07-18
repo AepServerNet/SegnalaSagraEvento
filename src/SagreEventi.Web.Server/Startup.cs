@@ -26,7 +26,6 @@ public class Startup
             });
 
         services.AddRazorPages();
-
         services.AddCors(options =>
         {
             options.AddDefaultPolicy(builder =>
@@ -40,12 +39,18 @@ public class Startup
         services.AddDbContextPool<AppDbContext>(optionsBuilder =>
         {
             string connectionString = Configuration.GetSection("ConnectionStrings").GetValue<string>("Default");
-            optionsBuilder.UseSqlite(connectionString, options =>
+            optionsBuilder.UseSqlServer(connectionString, options =>
             {
-                // Abilito il connection resiliency (tuttavia non è supportato dal provider di Sqlite perché non è soggetto a errori transienti)
-                // Info su: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency
-                // options.EnableRetryOnFailure(3);
+                options.EnableRetryOnFailure(3);
             });
+
+            //string connectionString = Configuration.GetSection("ConnectionStrings").GetValue<string>("DefaultSQLite");
+            //optionsBuilder.UseSqlite(connectionString, options =>
+            //{
+            //    // Abilito il connection resiliency (tuttavia non è supportato dal provider di Sqlite perché non è soggetto a errori transienti)
+            //    // Info su: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency
+            //    // options.EnableRetryOnFailure(3);
+            //});
         });
 
         services.AddSingleton<IHostedService, EventiHostedService>();
