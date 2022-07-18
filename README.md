@@ -18,7 +18,7 @@ Application that keeps track of food and wine festivals and events reported by u
 
 **Server:** Blazor, .NET 6
 
-**Database:** SQL Server
+**Database:** SQLite
 
 
 ## Run Locally

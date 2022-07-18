@@ -1,4 +1,5 @@
 ﻿FROM ubuntu:21.04
+#FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
@@ -8,7 +9,7 @@ RUN dpkg-reconfigure --frontend noninteractive tzdata
 
 RUN apt install -y wget vim
 
-RUN wget https://packages.microsoft.com/config/ubuntu/21.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+RUN wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 RUN dpkg -i packages-microsoft-prod.deb
 RUN rm packages-microsoft-prod.deb
 
