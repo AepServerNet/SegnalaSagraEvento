@@ -2,7 +2,7 @@
 
 services:
   sagreeventi:
-    container_name: blazor-sagreeventi
+    container_name: app-sagreeventi
     build:
       context: .
       dockerfile: Dockerfile

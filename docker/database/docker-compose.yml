@@ -1,0 +1,24 @@
+﻿version: '3.7'
+
+services:
+  sqlserver-2017:
+    container_name: db-sagreeventi
+    build:
+      context: .
+      dockerfile: Dockerfile        
+    restart: always
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=PASSWORD-SQLSERVER
+      - MSSQL_PID=Express
+    volumes:
+      - /storage/sqlserver/data:/var/opt/mssql/data
+    ports:
+      - 1433:1433
+    networks:
+      - lan-network
+
+networks:
+  lan-network:
+    external:
+      name: docker-net
