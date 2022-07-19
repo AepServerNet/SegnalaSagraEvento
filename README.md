@@ -26,7 +26,7 @@ Application that keeps track of food and wine festivals and events reported by u
 Clone the project
 
 ```bash
-  git clone https://github.com/AepServerNet/SegnalaSagraEvento.git
+  git clone https://github.com/AepServerNet/SagreEventi.SQLite.git
 ```
 
 Go to the project directory
@@ -59,5 +59,3 @@ https://bit.ly/3bVT5q4
 ## Badges
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
-
-[![.NET Build and Test](https://github.com/AepServerNet/SegnalaSagraEvento/actions/workflows/dotnet.yml/badge.svg)](https://github.com/AepServerNet/SegnalaSagraEvento/actions/workflows/dotnet.yml)
