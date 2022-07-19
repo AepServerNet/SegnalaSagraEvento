@@ -1,5 +1,7 @@
-# Segnala una sagre od un evento enogastronomico
-Application that keeps track of food and wine festivals and events reported by users
+# Sagre ed eventi enogastronomici
+Application that keeps track of food and wine festivals and events reported by users.<br /><br />
+**ATTENTION:** This version with SQLite database is not kept up to date. <br />
+For the updated and maintained version, with SQL Server database consult this <a href="https://github.com/AepServerNet/SagreEventi.SQLServer">repository</a>
 
 ![immagine](https://user-images.githubusercontent.com/107076741/178114907-74a0dd7c-c129-46af-9715-174ad0096df1.png)
 
